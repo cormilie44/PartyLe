@@ -1,99 +1,108 @@
 import { useState } from 'react'
-import Button from "/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "/components/ui/card"
 import Input from "/components/ui/input"
 import Label from "/components/ui/label"
+import Button from "/components/ui/button"
 import { ArrowRight } from 'lucide-react'
 
-interface CreateEventScreenProps {
+// Mock data for events
+const mockEvents = [
+  {
+    id: 1,
+    title: "Nightclub Night",
+    description: "Join us for a night of music, drinks, and fun!",
+    location: "Downtown Club",
+    date: "2023-10-15",
+    participants: 50,
+    comments: 10,
+    likes: 20,
+  },
+  {
+    id: 2,
+    title: "Karaoke Party",
+    description: "Sing your heart out with friends and strangers!",
+    location: "Sunset Lounge",
+    date: "2023-10-20",
+    participants: 30,
+    comments: 5,
+    likes: 15,
+  },
+  {
+    id: 3,
+    title: "DJ Night",
+    description: "Experience the best beats of the decade!",
+    location: "Midnight Club",
+    date: "2023-10-25",
+    participants: 70,
+    comments: 20,
+    likes: 30,
+  },
+]
+
+interface HomeScreenProps {
   navigateTo: (screen: 'home' | 'event-details' | 'create-event' | 'profile') => void;
 }
 
-export default function CreateEventScreen({ navigateTo }: CreateEventScreenProps) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [location, setLocation] = useState('')
-  const [date, setDate] = useState('')
+export default function HomeScreen({ navigateTo }: HomeScreenProps) {
+  const [events, setEvents] = useState(mockEvents)
+  const [filter, setFilter] = useState('')
 
-  const handleSubmit = () => {
-    if (title && description && location && date) {
-      // Mock event creation
-      const newEvent = {
-        id: Date.now(),
-        title,
-        description,
-        location,
-        date,
-        participants: 0,
-        comments: [],
-        likes: 0,
-      }
-      console.log('New Event Created:', newEvent)
-      // Navigate back to Home Screen or show success message
-      navigateTo('home')
-    }
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value)
   }
+
+  const filteredEvents = events.filter(event =>
+    event.title.toLowerCase().includes(filter.toLowerCase())
+  )
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col p-4">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold">Create Event</h1>
+        <h1 className="text-3xl font-bold">PartyLe</h1>
+        <p className="text-lg text-gray-400">Find and join the best nightlife events!</p>
       </header>
 
-      <div className="space-y-4">
-        <div>
-          <Label htmlFor="title" className="block text-sm font-medium text-gray-400">
-            Title
-          </Label>
-          <Input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Event Title"
-            className="mt-1 block w-full"
-          />
-        </div>
-        <div>
-          <Label htmlFor="description" className="block text-sm font-medium text-gray-400">
-            Description
-          </Label>
-          <Input
-            id="description"
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Event Description"
-            className="mt-1 block w-full"
-          />
-        </div>
-        <div>
-          <Label htmlFor="location" className="block text-sm font-medium text-gray-400">
-            Location
-          </Label>
-          <Input
-            id="location"
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="Event Location"
-            className="mt-1 block w-full"
-          />
-        </div>
-        <div>
-          <Label htmlFor="date" className="block text-sm font-medium text-gray-400">
-            Date
-          </Label>
-          <Input
-            id="date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="mt-1 block w-full"
-          />
-        </div>
-        <Button variant="outline" className="bg-gray-700 hover:bg-gray-600" onClick={handleSubmit}>
-          Create Event <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
+      <div className="mb-4">
+        <Label htmlFor="filter" className="block text-sm font-medium text-gray-400">
+          Filter Events
+        </Label>
+        <Input
+          id="filter"
+          type="text"
+          value={filter}
+          onChange={handleFilterChange}
+          placeholder="Search events..."
+          className="mt-1 block w-full"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredEvents.map(event => (
+          <Card key={event.id} className="bg-gray-800 text-white">
+            <CardHeader>
+              <CardTitle>{event.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>{event.description}</CardDescription>
+              <p className="mt-2 text-sm text-gray-400">
+                <span className="font-bold">Location:</span> {event.location}
+              </p>
+              <p className="text-sm text-gray-400">
+                <span className="font-bold">Date:</span> {event.date}
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-between items-center">
+              <div className="text-sm text-gray-400">
+                <p>{event.participants} Participants</p>
+                <p>{event.comments} Comments</p>
+                <p>{event.likes} Likes</p>
+              </div>
+              <Button variant="outline" className="bg-gray-700 hover:bg-gray-600" onClick={() => navigateTo('event-details')}>
+                View Details <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
     </div>
   )
