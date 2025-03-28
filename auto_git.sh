@@ -5,5 +5,5 @@ do
     git add .
     git commit -m "Auto commit"
     git push origin main  # Değişiklikleri uzak depoya gönder
-    sleep 60  # 60 saniye bekle, süreyi değiştirebilirsiniz
+    sleep 30  # 60 saniye bekle, süreyi değiştirebilirsiniz
 done
