@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button } from "/components/ui/button.tsx"
+import { Button } from "/components/ui/button"
 import HomeScreen from './pages/home-screen'
 import EventDetailsScreen from './pages/event-details-screen'
 import CreateEventScreen from './pages/create-event-screen'
