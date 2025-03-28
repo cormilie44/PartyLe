@@ -31,23 +31,13 @@ nav a {
     font-weight: bold;
 }
 
-form {
-    max-width: 400px;
-    margin: 2rem auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+main {
+    padding: 2rem;
 }
 
-form input, form button {
-    padding: 0.7rem;
-    border: none;
-    border-radius: 5px;
-}
-
-form button {
-    background-color: #ff5722;
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #1f1f1f;
     color: #fff;
-    font-weight: bold;
-    cursor: pointer;
 }
