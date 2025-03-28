@@ -7,30 +7,50 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Kayıt olma işlemi
 const signupForm = document.querySelector('#signup form');
-signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#signup-email').value;
-    const password = document.querySelector('#signup-password').value;
+if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Sayfa yenilemeyi engelle
 
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-        alert('Kayıt başarısız: ' + error.message);
-    } else {
-        alert('Kayıt başarılı! Lütfen e-postanızı kontrol edin.');
-    }
-});
+        const email = document.querySelector('#signup-email').value;
+        const password = document.querySelector('#signup-password').value;
+
+        try {
+            const { data, error } = await supabase.auth.signUp({ email, password });
+            if (error) {
+                console.error('Kayıt hatası:', error.message);
+                alert('Kayıt başarısız: ' + error.message);
+            } else {
+                console.log('Kayıt başarılı:', data);
+                alert('Kayıt başarılı! Lütfen e-postanızı kontrol edin.');
+            }
+        } catch (err) {
+            console.error('Beklenmeyen bir hata oluştu:', err);
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        }
+    });
+}
 
 // Giriş yapma işlemi
 const loginForm = document.querySelector('#login form');
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#login-email').value;
-    const password = document.querySelector('#login-password').value;
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Sayfa yenilemeyi engelle
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-        alert('Giriş başarısız: ' + error.message);
-    } else {
-        alert('Giriş başarılı!');
-    }
-});
+        const email = document.querySelector('#login-email').value;
+        const password = document.querySelector('#login-password').value;
+
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                console.error('Giriş hatası:', error.message);
+                alert('Giriş başarısız: ' + error.message);
+            } else {
+                console.log('Giriş başarılı:', data);
+                alert('Giriş başarılı!');
+            }
+        } catch (err) {
+            console.error('Beklenmeyen bir hata oluştu:', err);
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        }
+    });
+}
