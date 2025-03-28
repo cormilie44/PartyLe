@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase bağlantısı
-const supabaseUrl = 'https://<your-supabase-url>';
-const supabaseKey = '<your-anon-key>';
+const supabaseUrl = 'https://qtimbrjpvdznupvyahxp.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0aW1icmpwdmR6bnVwdnlhaHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4MjEzNTAsImV4cCI6MjA1ODM5NzM1MH0.-4_0jaNb5iyeFD3Fd1rbB9XtW7uQ--fUR2fKeUCvn5c';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Kayıt olma işlemi
