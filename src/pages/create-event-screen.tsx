@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "/components/ui/card"
-import Input from "/components/ui/input"
-import Label from "/components/ui/label"
-import Button from "/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
+import Input from "../components/ui/input"
+import Label from "../components/ui/label"
+import Button from "../components/ui/button"
 import { ArrowRight } from 'lucide-react'
 
 // Mock data for events
@@ -46,7 +46,7 @@ interface HomeScreenProps {
 export default function HomeScreen({ navigateTo }: HomeScreenProps) {
   const [events, setEvents] = useState(mockEvents)
   const [filter, setFilter] = useState('')
-
+  
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value)
   }
@@ -61,7 +61,7 @@ export default function HomeScreen({ navigateTo }: HomeScreenProps) {
         <h1 className="text-3xl font-bold">PartyLe</h1>
         <p className="text-lg text-gray-400">Find and join the best nightlife events!</p>
       </header>
-
+      
       <div className="mb-4">
         <Label htmlFor="filter" className="block text-sm font-medium text-gray-400">
           Filter Events
@@ -75,7 +75,7 @@ export default function HomeScreen({ navigateTo }: HomeScreenProps) {
           className="mt-1 block w-full"
         />
       </div>
-
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredEvents.map(event => (
           <Card key={event.id} className="bg-gray-800 text-white">
